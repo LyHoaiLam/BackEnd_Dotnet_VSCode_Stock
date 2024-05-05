@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace api.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly IStockRepository _stockRepo;
+
         public StockController(ApplicationDBContext context, IStockRepository stockRepo)
         {
             _stockRepo = stockRepo;
@@ -25,13 +27,14 @@ namespace api.Controllers
         
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(query);
             var stockDto = stocks.Select(s => s.ToStockDto());
+
             return Ok(stocks);
         }
 
@@ -46,6 +49,7 @@ namespace api.Controllers
             if(stock == null) {
                 return NotFound();
             }
+
             return Ok(stock.ToStockDto());
         }
 
@@ -59,6 +63,7 @@ namespace api.Controllers
 
             var stockModel = stockDto.ToStockFromCreateDTO();
             await _stockRepo.CreateAsync(stockModel);
+
             return CreatedAtAction(nameof(GetById), new {id = stockModel.Id}, stockModel.ToStockDto());
         }
 

@@ -46,9 +46,11 @@ namespace api.Controllers
                 return BadRequest(ModelState);
 
             var comment = await _commentRepo.GetByIdAsync(id);
+            
             if(comment == null) {
                 return NotFound();
             }
+
             return Ok(comment.ToCommentDto());
         }
 
@@ -66,11 +68,11 @@ namespace api.Controllers
 
             var commentModel = commentDto.ToCommentFromCreate(stockId);
             await _commentRepo.CreateAsync(commentModel);
+
             return CreatedAtAction(nameof(GetById), new {id = commentModel.Id}, commentModel.ToCommentDto());
         }
 
 
-        // [HttpPut("{id}")]
         [HttpPut("{id:int}")]
         // [Route("{id: int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateDto)
@@ -89,7 +91,6 @@ namespace api.Controllers
         }
 
 
-        // [HttpDelete("{id}")]
         [HttpDelete("{id:int}")]
         // [Route("{id: int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
@@ -102,7 +103,8 @@ namespace api.Controllers
                 if(commentModel == null)
                 {
                     return NotFound("Comment does not exits 3999");
-                } 
+                }
+
                 return Ok(commentModel);
             }
         }
