@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema; // Thêm vào để sử d�
 
 namespace api.Models
 {
+    [Table("Stocks")]
     public class Stock
     {
         public int Id {get; set;}
@@ -26,7 +27,8 @@ namespace api.Models
         public long MrketCap {get; set;}
 
         public List<Comment> Comment {get; set;} = new List<Comment>();
-       
+        // public List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+
     }
 }
 
