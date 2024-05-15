@@ -12,12 +12,10 @@ namespace api.Repository
     public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDBContext _context;
-
         public CommentRepository(ApplicationDBContext context)
         {
             _context = context;
         }
-
 
         public async Task<Comment?> CreateAsync(Comment commentModel)
         {
@@ -39,7 +37,6 @@ namespace api.Repository
             _context.Comment.Remove(commentModel);
             await _context.SaveChangesAsync();
             return commentModel;
-
         }
 
 
@@ -52,7 +49,6 @@ namespace api.Repository
         public async Task<Comment?> GetByIdAsync(int id)
         {
             return await _context.Comment.FindAsync(id);
-            
         }
 
 
@@ -65,7 +61,6 @@ namespace api.Repository
             {
                 return null;
             }
-
             existingComment.Title = commentModel.Title;
             existingComment.Content = commentModel.Content;
 

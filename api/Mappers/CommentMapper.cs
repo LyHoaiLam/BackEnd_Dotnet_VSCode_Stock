@@ -7,9 +7,7 @@ using api.Models;
 
 namespace api.Mappers
 {
-    public static class CommentMapper
-    {
-
+    public static class CommentMapper {
         public static CommentDto ToCommentDto(this Comment commentModel)
         {
             return new CommentDto
@@ -20,7 +18,6 @@ namespace api.Mappers
                 CreatedOn = commentModel.CreatedOn,
                 StockId = commentModel.StockId
             };
-
         }
 
 
@@ -35,17 +32,13 @@ namespace api.Mappers
 
         }
 
-
-
         public static Comment ToCommenFromUpdate(this UpdateCommentRequestDto commentModel)
         {
             return new Comment
             {
                 Title = commentModel.Title,
                 Content = commentModel.Content,
-
             };
-
         }
 
     }

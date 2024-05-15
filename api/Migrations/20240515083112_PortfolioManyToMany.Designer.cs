@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240510102830_gff")]
-    partial class gff
+    [Migration("20240515083112_PortfolioManyToMany")]
+    partial class PortfolioManyToMany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ff4eea94-7481-488f-b046-2e5579edadea",
+                            Id = "9f1aa2cf-0adb-4dbe-9f63-b694ffb5b74e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1fe09dc4-9499-48dc-b213-97f2ff65a621",
+                            Id = "8e295a22-4d9f-42a7-9960-07b72cf7c9c2",
                             Name = "User",
                             NormalizedName = "USER"
                         });

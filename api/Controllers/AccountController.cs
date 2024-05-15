@@ -13,24 +13,23 @@ namespace api.Controllers
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController : ControllerBase
-    {
+    public class AccountController : ControllerBase {
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signingManager;
 
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
-        {
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager) {
             _userManager = userManager;
             _tokenService = tokenService;
             _signingManager = signInManager;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
+        public async Task<IActionResult> Login(LoginDto loginDto) {
             if(!ModelState.IsValid)
+
                 return BadRequest(ModelState);
+
                 var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
                 if(user == null) return Unauthorized("Invalid username!");
@@ -48,26 +47,22 @@ namespace api.Controllers
                 );
         }
 
+
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-        {
-            try 
-            {
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto) {
+            try  {
                 if(!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var appUser = new AppUser
-                {
+                var appUser = new AppUser {
                     UserName = registerDto.Username,
                     Email = registerDto.Email
                 };
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
-                if(createdUser.Succeeded)
-                {
+                if(createdUser.Succeeded) {
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
-                    if(roleResult.Succeeded)
-                    {
+                    if(roleResult.Succeeded) {
                         // return Ok("User created");
                         return Ok(
                             new NewUserDto {

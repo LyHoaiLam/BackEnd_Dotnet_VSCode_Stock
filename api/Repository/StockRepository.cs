@@ -61,12 +61,8 @@ namespace api.Repository
                 }
             }
 
-
             return await stock.ToListAsync();
-
         }
-
-
 
 
         public async Task<Stock?> GetByIdAsync(int id)

@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -50,12 +49,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-
-
 builder.Services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
-
-builder.Services.AddDbContext<ApplicationDBContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnect")));
+builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnect")));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
     options.Password.RequireDigit = true;
@@ -88,13 +83,9 @@ builder.Services.AddAuthentication(options => {
     }
 );
 
-
-
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-
 builder.Services.AddScoped<ITokenService, TokenService>();
-
 
 var app = builder.Build();
 
@@ -107,10 +98,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseHttpsRedirection();
-
-
 app.MapControllers();
 
 app.Run();

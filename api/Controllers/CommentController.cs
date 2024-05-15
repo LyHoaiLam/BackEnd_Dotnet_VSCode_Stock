@@ -14,24 +14,21 @@ namespace api.Controllers
 {
     [Route("api/comment")]
     [ApiController]
-    public class CommentController : ControllerBase
-    {
+    public class CommentController : ControllerBase {
         // private readonly ApplicationDBContext _context;
         private readonly ICommentRepository _commentRepo;
         private readonly IStockRepository _stockRepo;
 
-        public CommentController(/*ApplicationDBContext context, */ICommentRepository commentRepo, IStockRepository stockRepo)
-        {
+        public CommentController(/*ApplicationDBContext context, */ICommentRepository commentRepo, IStockRepository stockRepo) {
             // _context = context;
             _commentRepo = commentRepo;
             _stockRepo = stockRepo;
         }
 
+
         [HttpGet]
         [Authorize]
-
-        public async Task<IActionResult> GetAll()
-        {
+        public async Task<IActionResult> GetAll() {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -59,8 +56,7 @@ namespace api.Controllers
 
 
         [HttpPost("{stockId:int}")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto commentDto)
-        {
+        public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto commentDto) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -78,8 +74,8 @@ namespace api.Controllers
 
         [HttpPut("{id:int}")]
         // [Route("{id: int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateDto)
-        {
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateDto) {
+
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -90,14 +86,12 @@ namespace api.Controllers
                 return NotFound("Comment not Found 3999");
             }
                 return Ok(comment.ToCommentDto());
-
         }
 
 
         [HttpDelete("{id:int}")]
         // [Route("{id: int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
-        {
+        public async Task<IActionResult> Delete([FromRoute] int id) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             var commentModel = await _commentRepo.DeleteAsync(id);
@@ -111,9 +105,5 @@ namespace api.Controllers
                 return Ok(commentModel);
             }
         }
-
-
-
-
     }
 }

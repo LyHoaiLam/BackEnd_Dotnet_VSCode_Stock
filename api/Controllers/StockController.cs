@@ -15,13 +15,11 @@ namespace api.Controllers
 {
     [Route("api/stock")]
     [ApiController]
-    public class StockController : ControllerBase
-    {
+    public class StockController : ControllerBase {
         private readonly ApplicationDBContext _context;
         private readonly IStockRepository _stockRepo;
 
-        public StockController(ApplicationDBContext context, IStockRepository stockRepo)
-        {
+        public StockController(ApplicationDBContext context, IStockRepository stockRepo) {
             _stockRepo = stockRepo;
             _context = context;
         }
@@ -29,8 +27,7 @@ namespace api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
-        {
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -58,8 +55,7 @@ namespace api.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
-        {
+        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -73,8 +69,7 @@ namespace api.Controllers
 
         [HttpPut("{id:int}")]
         // [Route("{id: int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
-        {
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -87,10 +82,8 @@ namespace api.Controllers
         }
 
 
-
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
-        {
+        public async Task<IActionResult> Delete([FromRoute] int id) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Account
 {
-    public class LoginDto
-    {
+    public class LoginDto {
+        
         [Required]
         public string Username { get; set; }
 
