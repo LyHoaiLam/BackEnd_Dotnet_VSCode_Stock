@@ -5,11 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Net.Http.Headers;
 
-namespace api.Models
-{
+namespace api.Models {
     [Table("Portfolios")]
-    public class Portfolio
-    {
+    public class Portfolio {
         public string AppUserId { get; set; }
         public int StockId { get; set; }
         public AppUser AppUser { get; set; }

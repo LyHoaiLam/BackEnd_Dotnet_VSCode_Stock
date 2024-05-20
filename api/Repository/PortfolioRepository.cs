@@ -7,18 +7,25 @@ using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Properties
-{
-    public class PortfolioRepository : IPortfolioRepository
-    {
+namespace api.Properties {
+    public class PortfolioRepository : IPortfolioRepository {
+
         private readonly ApplicationDBContext _context;
-        public PortfolioRepository(ApplicationDBContext context)
-        {
+
+
+        public PortfolioRepository(ApplicationDBContext context) {
             _context = context;
         }
- 
-        public async Task<List<Stock>> GetUserPortfolio(AppUser user)
+
+        public async Task<Portfolio> CreateAsync(Portfolio portfolio)
         {
+             // throw new NotImplementedException();
+            await _context.Portfolios.AddAsync(portfolio);
+            await _context.SaveChangesAsync();
+            return portfolio;
+        }
+
+        public async Task<List<Stock>> GetUserPortfolio(AppUser user) {
             // throw new NotImplementedException();
             return await _context.Portfolios.Where(u => u.AppUserId == user.Id).Select(stock => 
             new Stock {
@@ -29,9 +36,8 @@ namespace api.Properties
                 LastDiv = stock.Stock.LastDiv,
                 Industry = stock.Stock.Industry,
                 MrketCap = stock.Stock.MrketCap
-
             }).ToListAsync();
 
         }
-}
+    }
 }

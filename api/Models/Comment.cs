@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Models
-{
+namespace api.Models {
     [Table("Comments")]
     public class Comment {
         public int Id {get; set;}

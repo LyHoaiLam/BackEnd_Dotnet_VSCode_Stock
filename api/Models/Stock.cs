@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema; // Thêm vào để sử dụng attribute Column
 
 
-namespace api.Models
-{
+namespace api.Models {
     [Table("Stocks")]
     public class Stock {
         public int Id {get; set;}

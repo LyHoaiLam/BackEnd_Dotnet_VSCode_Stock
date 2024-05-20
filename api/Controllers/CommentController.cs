@@ -10,14 +10,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace api.Controllers
-{
+namespace api.Controllers {
     [Route("api/comment")]
     [ApiController]
     public class CommentController : ControllerBase {
         // private readonly ApplicationDBContext _context;
+
         private readonly ICommentRepository _commentRepo;
         private readonly IStockRepository _stockRepo;
+
 
         public CommentController(/*ApplicationDBContext context, */ICommentRepository commentRepo, IStockRepository stockRepo) {
             // _context = context;
@@ -34,19 +35,17 @@ namespace api.Controllers
 
             var comments =  await _commentRepo.GetAllAsync();
             var CommentDto = comments.Select(s => s.ToCommentDto());
-
             return Ok(CommentDto);
         }
 
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id) {
-            
+
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var comment = await _commentRepo.GetByIdAsync(id);
-            
             if(comment == null) {
                 return NotFound();
             }
@@ -60,11 +59,9 @@ namespace api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(!await _stockRepo.StockExists(stockId))
-            {
+            if(!await _stockRepo.StockExists(stockId)) {
                 return BadRequest("Stock does not exist");
             }
-
             var commentModel = commentDto.ToCommentFromCreate(stockId);
             await _commentRepo.CreateAsync(commentModel);
 
@@ -80,9 +77,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
 
             var comment = await _commentRepo.UpdateAsync(id, updateDto.ToCommenFromUpdate());
-
-            if(comment == null)
-            {
+            if(comment == null) {
                 return NotFound("Comment not Found 3999");
             }
                 return Ok(comment.ToCommentDto());
@@ -94,11 +89,10 @@ namespace api.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id) {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var commentModel = await _commentRepo.DeleteAsync(id);
 
+            var commentModel = await _commentRepo.DeleteAsync(id);
             {
-                if(commentModel == null)
-                {
+                if(commentModel == null) {
                     return NotFound("Comment does not exits 3999");
                 }
 

@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Comment
-{
+namespace api.Dtos.Comment {
     public class UpdateCommentRequestDto {
         [Required]
         [MinLength(5, ErrorMessage = "Title must be 5 characters 3999")]
