@@ -48,10 +48,7 @@ namespace api.Controllers {
             var stock = await _stockRepo.GetBySymbolAsync(symbol);
 
             if(stock ==  null ) return BadRequest("Stock not found 3999");
-
             var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
-
-
             if(userPortfolio.Any(e => e.Symbol.ToLower() == symbol.ToLower())) return BadRequest("Cannot add same stock to Portfolio 3999");
 
             var portfolioModel = new Portfolio {
@@ -68,6 +65,26 @@ namespace api.Controllers {
                  return CreatedAtAction(nameof(GetUserPortfolio), new { id = portfolioModel.AppUserId }, portfolioModel);
             }
         
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> DeletePortfolio(string symbol)
+        {
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
+
+            var filteredStock = userPortfolio.Where(s => s.Symbol.ToLower() == symbol.ToLower()).ToList();
+
+            if(filteredStock.Count() == 1) {
+                await _portfolioRepo.DetelePortfolio(appUser, symbol);
+            } else {
+                return BadRequest("Stock not your Portfolio 3999");
+            }
+
+            return Ok();
         }
 
 
