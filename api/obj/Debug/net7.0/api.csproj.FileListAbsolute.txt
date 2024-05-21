@@ -78,3 +78,5 @@ D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Microsoft.AspNetCore.
 D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\APS_Net_Core_Web_API\Dotnet_VSCode\api\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
